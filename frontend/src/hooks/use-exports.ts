@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { exportApi } from "@/lib/exports";
+import { budgetApi } from "@/lib/budgets";
+import { generateBudgetPdf } from "@/lib/pdf-exports";
 
 interface UseExportOptions {
   onSuccess?: () => void;
@@ -40,7 +42,21 @@ export function useBudgetExport(options?: UseExportOptions) {
     }
   };
 
-  return { exportCsv, exportExcel, isExporting };
+  const exportPdf = async (year: number, month?: number) => {
+    setIsExporting(true);
+    try {
+      const response = await budgetApi.getEntries({ year, month });
+      generateBudgetPdf(response.entries, year, month);
+      options?.onSuccess?.();
+    } catch (error) {
+      console.error("Export failed:", error);
+      options?.onError?.(error as Error);
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  return { exportCsv, exportExcel, exportPdf, isExporting };
 }
 
 /**

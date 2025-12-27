@@ -32,7 +32,12 @@ def create_app(config_name: str = None) -> Flask:
     jwt.init_app(app)
     cors.init_app(
         app,
-        origins=[app.config["FRONTEND_URL"]],
+        origins=[
+            app.config["FRONTEND_URL"],
+            "http://localhost:3000",
+            "http://127.0.0.1:3000",
+            "http://0.0.0.0:3000"
+        ],
         supports_credentials=True
     )
 

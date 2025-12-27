@@ -86,7 +86,7 @@ export default function DashboardPage() {
   const { data: yearlySummary, isLoading: yearlyLoading } = useYearlySummary(year);
 
   // Export
-  const { exportCsv: exportBudgetCsv, exportExcel: exportBudgetExcel, isExporting: isBudgetExporting } = useBudgetExport();
+  const { exportCsv: exportBudgetCsv, exportExcel: exportBudgetExcel, exportPdf: exportBudgetPdf, isExporting: isBudgetExporting } = useBudgetExport();
   const { exportCsv: exportYearlyCsv, isExporting: isYearlyExporting } = useYearlySummaryExport();
 
   // Memoized computed values to prevent unnecessary recalculations
@@ -139,6 +139,7 @@ export default function DashboardPage() {
             <ExportMenu
               onExportCsv={() => exportBudgetCsv(year, month)}
               onExportExcel={() => exportBudgetExcel(year, month)}
+              onExportPdf={() => exportBudgetPdf(year, month)}
               isExporting={isBudgetExporting}
               label="Export Month"
             />
