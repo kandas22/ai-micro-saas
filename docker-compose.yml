@@ -1,9 +1,5 @@
 version: "3.8"
 
-# NOTE: This docker-compose.yml is for DEVELOPMENT with volume mounts.
-# For PRODUCTION deployment (e.g., on Hostinger), use docker-compose.prod.yml
-# or remove the volume mounts from this file.
-
 services:
   # PostgreSQL Database
   db:
@@ -35,15 +31,14 @@ services:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/finance_db
       JWT_SECRET_KEY: ${JWT_SECRET_KEY:-dev-jwt-secret-key}
       SECRET_KEY: ${SECRET_KEY:-dev-secret-key}
-      FLASK_ENV: development
+      FLASK_ENV: production
       FRONTEND_URL: http://localhost:3000
     ports:
       - "5000:5000"
     depends_on:
       db:
         condition: service_healthy
-    volumes:
-      - ./backend:/app
+    # No volume mounts - use built image
 
   # Frontend Next.js
   frontend:
@@ -58,9 +53,7 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
+    # No volume mounts - use built image
 
 volumes:
   postgres_data:
