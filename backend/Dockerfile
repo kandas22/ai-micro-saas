@@ -15,6 +15,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
+# Create wsgi.py if it doesn't exist (for backwards compatibility)
+RUN test -f wsgi.py || printf '#!/usr/bin/env python\n"""WSGI entry point for production servers (Gunicorn)."""\nfrom app import create_app\napplication = create_app()\n' > wsgi.py
+
 # Expose port
 EXPOSE 5000
 
