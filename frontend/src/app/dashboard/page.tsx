@@ -89,6 +89,18 @@ export default function DashboardPage() {
   const { exportCsv: exportBudgetCsv, exportExcel: exportBudgetExcel, isExporting: isBudgetExporting } = useBudgetExport();
   const { exportCsv: exportYearlyCsv, isExporting: isYearlyExporting } = useYearlySummaryExport();
 
+  // Memoized computed values to prevent unnecessary recalculations
+  const { surplusDeficit, isPositive, hasData } = useMemo(() => {
+    const surplus = parseFloat(summary?.surplus_deficit || "0");
+    const positive = surplus >= 0;
+    const data = summary && (
+      parseFloat(summary.total_income) > 0 ||
+      parseFloat(summary.total_expenses) > 0 ||
+      parseFloat(summary.total_savings) > 0
+    );
+    return { surplusDeficit: surplus, isPositive: positive, hasData: data };
+  }, [summary]);
+
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push("/login");
@@ -107,17 +119,7 @@ export default function DashboardPage() {
     return null;
   }
 
-  // Memoized computed values to prevent unnecessary recalculations
-  const { surplusDeficit, isPositive, hasData } = useMemo(() => {
-    const surplus = parseFloat(summary?.surplus_deficit || "0");
-    const positive = surplus >= 0;
-    const data = summary && (
-      parseFloat(summary.total_income) > 0 ||
-      parseFloat(summary.total_expenses) > 0 ||
-      parseFloat(summary.total_savings) > 0
-    );
-    return { surplusDeficit: surplus, isPositive: positive, hasData: data };
-  }, [summary]);
+
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -197,7 +199,7 @@ export default function DashboardPage() {
                 {summaryLoading ? "..." : (
                   <>
                     {isPositive ? "+" : "-"}
-                    {formatCurrency(summary?.surplus_deficit)}
+                    {formatCurrency(Math.abs(surplusDeficit))}
                   </>
                 )}
               </CardTitle>
