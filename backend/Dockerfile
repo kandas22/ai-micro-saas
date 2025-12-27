@@ -18,5 +18,5 @@ COPY . .
 # Expose port
 EXPOSE 5000
 
-# Run the application
-CMD ["python", "run.py"]
+# Run the application with Gunicorn for production
+CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "--timeout", "120", "wsgi:application"]
