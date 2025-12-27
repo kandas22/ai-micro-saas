@@ -1,5 +1,8 @@
 FROM node:20-alpine AS builder
 
+# Build version for cache busting
+ARG BUILD_DATE=unknown
+
 WORKDIR /app
 
 # Copy package files
