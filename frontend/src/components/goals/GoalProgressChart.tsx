@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartSkeleton } from "@/components/ui/skeleton";
+import { formatCurrency, formatCurrencyCompact } from "@/lib/utils";
 import type { SavingsGoal } from "@/types";
 
 interface GoalProgressChartProps {
@@ -51,8 +52,6 @@ export function GoalProgressChart({ goals, isLoading }: GoalProgressChartProps) 
     progress: goal.progress_percentage,
   }));
 
-  const formatCurrency = (value: number) => `$${value.toLocaleString()}`;
-
   const totalTarget = chartData.reduce((sum, g) => sum + g.target, 0);
   const totalCurrent = chartData.reduce((sum, g) => sum + g.current, 0);
   const overallProgress = totalTarget > 0 ? (totalCurrent / totalTarget) * 100 : 0;
@@ -78,7 +77,7 @@ export function GoalProgressChart({ goals, isLoading }: GoalProgressChartProps) 
             <XAxis
               type="number"
               tick={{ fontSize: 12 }}
-              tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+              tickFormatter={(value) => formatCurrencyCompact(value)}
             />
             <YAxis
               type="category"

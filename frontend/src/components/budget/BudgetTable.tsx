@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { formatCurrency } from "@/lib/utils";
 import type { BudgetEntry, Category, CategoryType } from "@/types";
 
 interface BudgetTableProps {
@@ -64,11 +65,6 @@ export function BudgetTable({
   const handleCancel = () => {
     setEditingCell(null);
     setEditValue("");
-  };
-
-  const formatCurrency = (value: string) => {
-    const num = parseFloat(value);
-    return isNaN(num) ? "$0.00" : `$${num.toFixed(2)}`;
   };
 
   // Calculate totals
@@ -221,8 +217,7 @@ export function BudgetTable({
                         )}
                       </td>
                       <td className={`px-4 py-2 text-right text-sm ${getDifferenceColor(difference)}`}>
-                        {difference !== 0 && (difference > 0 ? "+" : "")}
-                        {formatCurrency(difference.toString())}
+                        {formatCurrency(difference, { showSign: true })}
                       </td>
                     </tr>
                   );

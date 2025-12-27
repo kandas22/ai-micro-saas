@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartSkeleton } from "@/components/ui/skeleton";
+import { formatCurrency, formatCurrencyCompact } from "@/lib/utils";
 import { MONTH_NAMES } from "@/types";
 
 interface MonthlyData {
@@ -44,8 +45,6 @@ export const MonthlyTrendChart = memo(function MonthlyTrendChart({ data, year, i
     surplus: parseFloat(item.surplus_deficit) || 0,
   })), [data]);
 
-  const formatCurrency = (value: number) => `$${value.toLocaleString()}`;
-
   return (
     <Card>
       <CardHeader>
@@ -63,7 +62,7 @@ export const MonthlyTrendChart = memo(function MonthlyTrendChart({ data, year, i
             <YAxis
               tick={{ fontSize: 12 }}
               tickLine={false}
-              tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+              tickFormatter={(value) => formatCurrencyCompact(value)}
             />
             <Tooltip
               formatter={(value) => formatCurrency(Number(value))}

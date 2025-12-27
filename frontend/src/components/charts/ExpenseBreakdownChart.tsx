@@ -13,6 +13,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartSkeleton } from "@/components/ui/skeleton";
+import { formatCurrency, formatCurrencyCompact } from "@/lib/utils";
 import { EXPENSE_TYPE_LABELS, type ExpenseType } from "@/types";
 
 interface ExpenseData {
@@ -64,8 +65,6 @@ export const ExpenseBreakdownChart = memo(function ExpenseBreakdownChart({ data,
     return <ChartSkeleton height="h-64" />;
   }
 
-  const formatCurrency = (value: number) => `$${value.toLocaleString()}`;
-
   if (chartData.length === 0) {
     return (
       <Card>
@@ -100,7 +99,7 @@ export const ExpenseBreakdownChart = memo(function ExpenseBreakdownChart({ data,
             <XAxis
               type="number"
               tick={{ fontSize: 12 }}
-              tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+              tickFormatter={(value) => formatCurrencyCompact(value)}
             />
             <YAxis
               type="category"

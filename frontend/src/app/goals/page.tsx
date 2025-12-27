@@ -10,6 +10,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { GoalCard, GoalForm, GoalProgressChart } from "@/components/goals";
 import { ExportMenu } from "@/components/ExportMenu";
 import { Header } from "@/components/layout";
+import { formatCurrency } from "@/lib/utils";
 import type { SavingsGoal } from "@/types";
 
 export default function GoalsPage() {
@@ -55,10 +56,6 @@ export default function GoalsPage() {
   const handleCloseForm = () => {
     setIsFormOpen(false);
     setEditingGoal(null);
-  };
-
-  const formatCurrency = (value: number) => {
-    return `$${value.toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
   };
 
   const totalTarget = goals

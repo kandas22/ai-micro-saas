@@ -11,6 +11,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartSkeleton } from "@/components/ui/skeleton";
+import { formatCurrency } from "@/lib/utils";
 
 interface CategoryData {
   category_id: number;
@@ -50,8 +51,6 @@ export const CategoryPieChart = memo(function CategoryPieChart({ data, title, ty
   if (isLoading) {
     return <ChartSkeleton height="h-64" />;
   }
-
-  const formatCurrency = (value: number) => `$${value.toLocaleString()}`;
 
   const colors = COLORS[type];
 

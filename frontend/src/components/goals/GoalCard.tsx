@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
+import { formatCurrency } from "@/lib/utils";
 import { useUpdateGoalProgress, useDeleteGoal, useUpdateGoal } from "@/hooks/use-goals";
 import type { SavingsGoal } from "@/types";
 
@@ -21,11 +22,6 @@ export function GoalCard({ goal, onEdit }: GoalCardProps) {
   const updateProgress = useUpdateGoalProgress();
   const deleteGoal = useDeleteGoal();
   const updateGoal = useUpdateGoal();
-
-  const formatCurrency = (value: string) => {
-    const num = parseFloat(value);
-    return isNaN(num) ? "$0.00" : `$${num.toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
-  };
 
   const formatDate = (dateStr: string | null) => {
     if (!dateStr) return null;

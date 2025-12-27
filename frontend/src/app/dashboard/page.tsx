@@ -17,6 +17,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { formatCurrency } from "@/lib/utils";
 import { MONTH_NAMES } from "@/types";
 
 // Lazy load chart components to reduce initial bundle size
@@ -117,12 +118,6 @@ export default function DashboardPage() {
     );
     return { surplusDeficit: surplus, isPositive: positive, hasData: data };
   }, [summary]);
-
-  const formatCurrency = (value: string | undefined) => {
-    if (!value) return "$0.00";
-    const num = parseFloat(value);
-    return isNaN(num) ? "$0.00" : `$${Math.abs(num).toFixed(2)}`;
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">

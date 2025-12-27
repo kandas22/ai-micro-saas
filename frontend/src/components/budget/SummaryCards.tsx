@@ -8,6 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { CardSkeleton } from "@/components/ui/skeleton";
+import { formatCurrency } from "@/lib/utils";
 import type { MonthlySummary } from "@/types";
 
 interface SummaryCardsProps {
@@ -16,12 +17,6 @@ interface SummaryCardsProps {
 }
 
 export function SummaryCards({ summary, isLoading }: SummaryCardsProps) {
-  const formatCurrency = (value: string | undefined) => {
-    if (!value) return "$0.00";
-    const num = parseFloat(value);
-    return isNaN(num) ? "$0.00" : `$${Math.abs(num).toFixed(2)}`;
-  };
-
   const surplusDeficit = parseFloat(summary?.surplus_deficit || "0");
   const isPositive = surplusDeficit >= 0;
 
@@ -85,8 +80,7 @@ export function SummaryCards({ summary, isLoading }: SummaryCardsProps) {
           <CardTitle
             className={`text-2xl ${isPositive ? "text-green-600" : "text-red-600"}`}
           >
-            {isPositive ? "+" : "-"}
-            {formatCurrency(summary?.surplus_deficit)}
+            {formatCurrency(summary?.surplus_deficit, { showSign: true })}
           </CardTitle>
         </CardHeader>
         <CardContent>

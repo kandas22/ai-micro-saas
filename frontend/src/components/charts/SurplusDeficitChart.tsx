@@ -14,6 +14,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartSkeleton } from "@/components/ui/skeleton";
+import { formatCurrency, formatCurrencyCompact } from "@/lib/utils";
 import { MONTH_NAMES } from "@/types";
 
 interface MonthlyData {
@@ -41,18 +42,13 @@ export const SurplusDeficitChart = memo(function SurplusDeficitChart({ data, yea
     return <ChartSkeleton height="h-64" />;
   }
 
-  const formatCurrency = (value: number) => {
-    const prefix = value >= 0 ? "+" : "";
-    return `${prefix}$${Math.abs(value).toLocaleString()}`;
-  };
-
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex justify-between items-center">
           <span>Monthly Surplus/Deficit - {year}</span>
           <span className={`text-lg ${yearlyTotal >= 0 ? "text-green-600" : "text-red-600"}`}>
-            {formatCurrency(yearlyTotal)} YTD
+            {formatCurrency(yearlyTotal, { showSign: true })} YTD
           </span>
         </CardTitle>
       </CardHeader>
@@ -63,10 +59,10 @@ export const SurplusDeficitChart = memo(function SurplusDeficitChart({ data, yea
             <XAxis dataKey="name" tick={{ fontSize: 12 }} />
             <YAxis
               tick={{ fontSize: 12 }}
-              tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
+              tickFormatter={(value) => formatCurrencyCompact(value)}
             />
             <Tooltip
-              formatter={(value) => formatCurrency(Number(value))}
+              formatter={(value) => formatCurrency(Number(value), { showSign: true })}
               contentStyle={{
                 backgroundColor: "white",
                 border: "1px solid #e5e7eb",

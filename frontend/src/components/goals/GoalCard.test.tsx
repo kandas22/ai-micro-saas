@@ -65,21 +65,21 @@ describe("GoalCard", () => {
     render(<GoalCard goal={mockGoal} onEdit={mockOnEdit} />, {
       wrapper: createWrapper(),
     });
-    expect(screen.getByText("$2,500.00")).toBeInTheDocument();
+    expect(screen.getByText("₹2,500.00")).toBeInTheDocument();
   });
 
   it("displays target amount correctly", () => {
     render(<GoalCard goal={mockGoal} onEdit={mockOnEdit} />, {
       wrapper: createWrapper(),
     });
-    expect(screen.getByText("$10,000.00")).toBeInTheDocument();
+    expect(screen.getByText("₹10,000.00")).toBeInTheDocument();
   });
 
   it("displays remaining amount correctly", () => {
     render(<GoalCard goal={mockGoal} onEdit={mockOnEdit} />, {
       wrapper: createWrapper(),
     });
-    expect(screen.getByText("$7,500.00")).toBeInTheDocument();
+    expect(screen.getByText("₹7,500.00")).toBeInTheDocument();
   });
 
   it("displays progress percentage", () => {

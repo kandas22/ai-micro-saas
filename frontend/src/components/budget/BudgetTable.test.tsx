@@ -57,28 +57,28 @@ describe("BudgetTable", () => {
   it("formats currency values correctly", () => {
     render(<BudgetTable {...defaultProps} />);
     // Check for budgeted amounts (appear in both desktop and mobile)
-    const budgetedAmounts = screen.getAllByText("$5000.00");
+    const budgetedAmounts = screen.getAllByText("₹5,000.00");
     expect(budgetedAmounts.length).toBeGreaterThan(0);
   });
 
   it("calculates and displays totals", () => {
     render(<BudgetTable {...defaultProps} />);
     // Total budgeted: 5000 + 1000 = 6000, Total actual: 5200 + 800 = 6000
-    const totals = screen.getAllByText("$6000.00");
+    const totals = screen.getAllByText("₹6,000.00");
     expect(totals.length).toBeGreaterThan(0);
   });
 
   it("shows positive difference for overperforming income", () => {
     render(<BudgetTable {...defaultProps} />);
     // Salary: 5200 - 5000 = +200
-    const positiveAmounts = screen.getAllByText("+$200.00");
+    const positiveAmounts = screen.getAllByText("+₹200.00");
     expect(positiveAmounts.length).toBeGreaterThan(0);
   });
 
   it("shows negative difference for underperforming income", () => {
     render(<BudgetTable {...defaultProps} />);
-    // Freelance: 800 - 1000 = -200 (formatted as $-200.00)
-    const negativeAmounts = screen.getAllByText("$-200.00");
+    // Freelance: 800 - 1000 = -200 (formatted as -₹200.00)
+    const negativeAmounts = screen.getAllByText("-₹200.00");
     expect(negativeAmounts.length).toBeGreaterThan(0);
   });
 
@@ -116,7 +116,7 @@ describe("BudgetTable", () => {
     render(<BudgetTable {...defaultProps} onUpdate={mockOnUpdate} />);
 
     // Click on a budgeted amount to edit (first one in desktop view)
-    const budgetedAmounts = screen.getAllByText("$5000.00");
+    const budgetedAmounts = screen.getAllByText("₹5,000.00");
     await user.click(budgetedAmounts[0]);
 
     // Should show an input field
