@@ -15,11 +15,12 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy application code
 COPY . .
 
-# Create wsgi.py if it doesn't exist (for backwards compatibility)
-RUN test -f wsgi.py || printf '#!/usr/bin/env python\n"""WSGI entry point for production servers (Gunicorn)."""\nfrom app import create_app\napplication = create_app()\n' > wsgi.py
+# Copy and set up entrypoint script
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
 
 # Expose port
 EXPOSE 5000
 
-# Run the application with Gunicorn for production
-CMD ["gunicorn", "-w", "4", "-b", "0.0.0.0:5000", "--timeout", "120", "wsgi:application"]
+# Use entrypoint script to ensure wsgi.py exists and run gunicorn
+ENTRYPOINT ["/docker-entrypoint.sh"]

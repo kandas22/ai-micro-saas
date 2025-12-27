@@ -1,5 +1,9 @@
 version: "3.8"
 
+# NOTE: This docker-compose.yml is for DEVELOPMENT with volume mounts.
+# For PRODUCTION deployment (e.g., on Hostinger), use docker-compose.prod.yml
+# or remove the volume mounts from this file.
+
 services:
   # PostgreSQL Database
   db:
