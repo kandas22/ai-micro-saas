@@ -2,6 +2,9 @@ FROM node:20-alpine AS builder
 
 # Build version for cache busting
 ARG BUILD_DATE=unknown
+# API URL must be set at build time for Next.js
+ARG NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
 
 WORKDIR /app
 
@@ -34,7 +37,7 @@ RUN npm ci --omit=dev && npm cache clean --force
 # Copy built application from builder
 COPY --from=builder /app/.next ./.next
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.* ./
+COPY --from=builder /app/next.config.mjs ./
 
 # Expose port
 EXPOSE 3000
