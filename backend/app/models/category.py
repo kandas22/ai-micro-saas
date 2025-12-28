@@ -44,8 +44,14 @@ class FinancialCategory(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    category_type = db.Column(db.Enum(CategoryType), nullable=False)
-    expense_type = db.Column(db.Enum(ExpenseType), nullable=True)
+    category_type = db.Column(
+        db.Enum(CategoryType, values_callable=lambda x: [e.value for e in x]),
+        nullable=False
+    )
+    expense_type = db.Column(
+        db.Enum(ExpenseType, values_callable=lambda x: [e.value for e in x]),
+        nullable=True
+    )
     parent_id = db.Column(
         db.Integer,
         db.ForeignKey("financial_categories.id"),
