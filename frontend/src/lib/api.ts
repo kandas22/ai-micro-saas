@@ -5,16 +5,37 @@
 import axios, { AxiosError, InternalAxiosRequestConfig } from "axios";
 import type { AuthTokens, ApiError } from "@/types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+/**
+ * Get the API base URL dynamically.
+ * In browser: uses the current hostname with port 5000
+ * In SSR: uses the environment variable or localhost
+ */
+export function getApiBaseUrl(): string {
+  if (typeof window !== "undefined") {
+    // Client-side: use the same hostname as the frontend, but port 5000
+    const hostname = window.location.hostname;
+    return `http://${hostname}:5000/api/v1`;
+  }
+  // Server-side: use environment variable or default
+  return process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+}
 
-// Create axios instance
+// Create axios instance without baseURL - we'll set it dynamically
 export const api = axios.create({
-  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
   withCredentials: true,
 });
+
+// Request interceptor to set baseURL dynamically
+api.interceptors.request.use(
+  (config: InternalAxiosRequestConfig) => {
+    // Set baseURL dynamically on each request
+    config.baseURL = getApiBaseUrl();
+    return config;
+  }
+);
 
 // Token storage keys
 const ACCESS_TOKEN_KEY = "access_token";
@@ -74,7 +95,7 @@ api.interceptors.response.use(
       if (refreshToken) {
         try {
           const response = await axios.post<AuthTokens>(
-            `${API_BASE_URL}/auth/refresh`,
+            `${getApiBaseUrl()}/auth/refresh`,
             {},
             {
               headers: {
