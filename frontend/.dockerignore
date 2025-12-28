@@ -1,0 +1,21 @@
+# Dependencies
+node_modules
+
+# Local env files (use build args instead)
+.env
+.env.*
+!.env.example
+
+# Build output
+.next
+
+# IDE
+.idea
+.vscode
+
+# Testing
+coverage
+
+# Misc
+.DS_Store
+*.log
