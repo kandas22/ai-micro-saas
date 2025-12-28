@@ -45,6 +45,16 @@ else:
 echo "Running database migrations..."
 flask db upgrade
 
+# Seed default categories
+echo "Seeding default categories..."
+python -c "
+from app import create_app
+from app.utils.seed_categories import seed_default_categories
+app = create_app()
+with app.app_context():
+    seed_default_categories()
+"
+
 # Run gunicorn
 exec gunicorn -w 4 -b 0.0.0.0:5000 --timeout 120 wsgi:application
 
