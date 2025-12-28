@@ -24,6 +24,7 @@ DEFAULT_CATEGORIES: List[Dict[str, Any]] = [
     {"name": "Child Savings", "category_type": "savings"},
     {"name": "Mutual Funds", "category_type": "savings"},
     {"name": "Shares", "category_type": "savings"},
+    {"name": "Chit Fund", "category_type": "savings"},
     {"name": "LIC/Insurance Investment", "category_type": "savings"},
     {"name": "Fixed Deposit", "category_type": "savings"},
     {"name": "PPF/EPF", "category_type": "savings"},
@@ -34,6 +35,7 @@ DEFAULT_CATEGORIES: List[Dict[str, Any]] = [
     {"name": "Personal Loan", "category_type": "expense", "expense_type": "debt_loan"},
     {"name": "Vehicle Loan", "category_type": "expense", "expense_type": "debt_loan"},
     {"name": "Home Loan", "category_type": "expense", "expense_type": "debt_loan"},
+    {"name": "Jewel Loan", "category_type": "expense", "expense_type": "debt_loan"},
     {"name": "Other Loans", "category_type": "expense", "expense_type": "debt_loan"},
 
     # Expense Categories - Insurance
@@ -45,23 +47,29 @@ DEFAULT_CATEGORIES: List[Dict[str, Any]] = [
 
     # Expense Categories - Fixed
     {"name": "Rent", "category_type": "expense", "expense_type": "fixed"},
-    {"name": "Electric Bill", "category_type": "expense", "expense_type": "fixed"},
-    {"name": "Water Bill", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Electricity/Water", "category_type": "expense", "expense_type": "fixed"},
     {"name": "Gas Bill", "category_type": "expense", "expense_type": "fixed"},
-    {"name": "Internet/Phone", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Mobile Recharge", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Internet", "category_type": "expense", "expense_type": "fixed"},
     {"name": "Groceries", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Vegetables/Fruits", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Fuel/Transport", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Driver/Toll", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Vehicle Servicing", "category_type": "expense", "expense_type": "fixed"},
     {"name": "House Maintenance", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Electronics", "category_type": "expense", "expense_type": "fixed"},
 
     # Expense Categories - Recurring
     {"name": "School Fees", "category_type": "expense", "expense_type": "recurring"},
-    {"name": "Tuition", "category_type": "expense", "expense_type": "recurring"},
-    {"name": "Subscriptions", "category_type": "expense", "expense_type": "recurring"},
+    {"name": "Tuition/Extra Curricular", "category_type": "expense", "expense_type": "recurring"},
+    {"name": "OTT/Subscriptions", "category_type": "expense", "expense_type": "recurring"},
     {"name": "Society Maintenance", "category_type": "expense", "expense_type": "recurring"},
-    {"name": "Maid/Cook/Driver", "category_type": "expense", "expense_type": "recurring"},
+    {"name": "Maid", "category_type": "expense", "expense_type": "recurring"},
 
     # Expense Categories - Medical
     {"name": "Doctor Visits", "category_type": "expense", "expense_type": "medical"},
-    {"name": "Medicines", "category_type": "expense", "expense_type": "medical"},
+    {"name": "Medicines (Self)", "category_type": "expense", "expense_type": "medical"},
+    {"name": "Medicines (Family)", "category_type": "expense", "expense_type": "medical"},
     {"name": "Health Checkups", "category_type": "expense", "expense_type": "medical"},
     {"name": "Other Medical", "category_type": "expense", "expense_type": "medical"},
 
@@ -71,8 +79,11 @@ DEFAULT_CATEGORIES: List[Dict[str, Any]] = [
     {"name": "Movies/Entertainment", "category_type": "expense", "expense_type": "discretionary"},
     {"name": "Travel/Vacation", "category_type": "expense", "expense_type": "discretionary"},
     {"name": "Gifts", "category_type": "expense", "expense_type": "discretionary"},
-    {"name": "Personal Care", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Grooming/Personal Care", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Cosmetics", "category_type": "expense", "expense_type": "discretionary"},
     {"name": "Hobbies", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Pet Supplies", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Pet Boarding", "category_type": "expense", "expense_type": "discretionary"},
     {"name": "Miscellaneous", "category_type": "expense", "expense_type": "discretionary"},
 ]
 
