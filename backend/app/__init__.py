@@ -35,7 +35,10 @@ def create_app(config_name: str = None) -> Flask:
         app.config["FRONTEND_URL"],
         "http://localhost:3000",
         "http://127.0.0.1:3000",
+        "http://0.0.0.0:3000",
         "http://72.61.244.236:3000",
+        "http://selffinance.fun",
+        "https://selffinance.fun",
     ]
     cors.init_app(
         app,
