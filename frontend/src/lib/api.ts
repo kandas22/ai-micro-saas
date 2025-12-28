@@ -7,14 +7,14 @@ import type { AuthTokens, ApiError } from "@/types";
 
 /**
  * Get the API base URL dynamically.
- * In browser: uses the current hostname with port 5000
+ * In browser: uses the current origin with /api/v1 path (works with nginx proxy)
  * In SSR: uses the environment variable or localhost
  */
 export function getApiBaseUrl(): string {
   if (typeof window !== "undefined") {
-    // Client-side: use the same hostname as the frontend, but port 5000
-    const hostname = window.location.hostname;
-    return `http://${hostname}:5000/api/v1`;
+    // Client-side: use the same origin (nginx proxies /api to backend)
+    const origin = window.location.origin;
+    return `${origin}/api/v1`;
   }
   // Server-side: use environment variable or default
   return process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
