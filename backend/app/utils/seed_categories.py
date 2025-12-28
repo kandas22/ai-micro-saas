@@ -10,206 +10,70 @@ from ..extensions import db
 from ..models.category import FinancialCategory, CategoryType, ExpenseType
 
 
-# Default categories based on Excel template
+# Default categories based on Excel template (using string values for DB compatibility)
 DEFAULT_CATEGORIES: List[Dict[str, Any]] = [
     # Income Categories
-    {"name": "Net Salary (Self)", "category_type": CategoryType.INCOME},
-    {"name": "Net Salary (Partner)", "category_type": CategoryType.INCOME},
-    {"name": "Rental Income", "category_type": CategoryType.INCOME},
-    {"name": "Interest/Dividend", "category_type": CategoryType.INCOME},
-    {"name": "Other Income", "category_type": CategoryType.INCOME},
+    {"name": "Net Salary (Self)", "category_type": "income"},
+    {"name": "Net Salary (Partner)", "category_type": "income"},
+    {"name": "Rental Income", "category_type": "income"},
+    {"name": "Interest/Dividend", "category_type": "income"},
+    {"name": "Other Income", "category_type": "income"},
 
     # Savings Categories
-    {"name": "Jewel Saving", "category_type": CategoryType.SAVINGS},
-    {"name": "Child Savings", "category_type": CategoryType.SAVINGS},
-    {"name": "Mutual Funds", "category_type": CategoryType.SAVINGS},
-    {"name": "Shares", "category_type": CategoryType.SAVINGS},
-    {"name": "LIC/Insurance Investment", "category_type": CategoryType.SAVINGS},
-    {"name": "Fixed Deposit", "category_type": CategoryType.SAVINGS},
-    {"name": "PPF/EPF", "category_type": CategoryType.SAVINGS},
-    {"name": "Other Savings", "category_type": CategoryType.SAVINGS},
+    {"name": "Jewel Saving", "category_type": "savings"},
+    {"name": "Child Savings", "category_type": "savings"},
+    {"name": "Mutual Funds", "category_type": "savings"},
+    {"name": "Shares", "category_type": "savings"},
+    {"name": "LIC/Insurance Investment", "category_type": "savings"},
+    {"name": "Fixed Deposit", "category_type": "savings"},
+    {"name": "PPF/EPF", "category_type": "savings"},
+    {"name": "Other Savings", "category_type": "savings"},
 
     # Expense Categories - Debt/Loan
-    {
-        "name": "Credit Cards",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DEBT_LOAN
-    },
-    {
-        "name": "Personal Loan",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DEBT_LOAN
-    },
-    {
-        "name": "Vehicle Loan",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DEBT_LOAN
-    },
-    {
-        "name": "Home Loan",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DEBT_LOAN
-    },
-    {
-        "name": "Other Loans",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DEBT_LOAN
-    },
+    {"name": "Credit Cards", "category_type": "expense", "expense_type": "debt_loan"},
+    {"name": "Personal Loan", "category_type": "expense", "expense_type": "debt_loan"},
+    {"name": "Vehicle Loan", "category_type": "expense", "expense_type": "debt_loan"},
+    {"name": "Home Loan", "category_type": "expense", "expense_type": "debt_loan"},
+    {"name": "Other Loans", "category_type": "expense", "expense_type": "debt_loan"},
 
     # Expense Categories - Insurance
-    {
-        "name": "Life Insurance",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.INSURANCE
-    },
-    {
-        "name": "Health Insurance",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.INSURANCE
-    },
-    {
-        "name": "Vehicle Insurance",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.INSURANCE
-    },
-    {
-        "name": "Home Insurance",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.INSURANCE
-    },
-    {
-        "name": "Jewel Insurance",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.INSURANCE
-    },
+    {"name": "Life Insurance", "category_type": "expense", "expense_type": "insurance"},
+    {"name": "Health Insurance", "category_type": "expense", "expense_type": "insurance"},
+    {"name": "Vehicle Insurance", "category_type": "expense", "expense_type": "insurance"},
+    {"name": "Home Insurance", "category_type": "expense", "expense_type": "insurance"},
+    {"name": "Jewel Insurance", "category_type": "expense", "expense_type": "insurance"},
 
     # Expense Categories - Fixed
-    {
-        "name": "Rent",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.FIXED
-    },
-    {
-        "name": "Electric Bill",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.FIXED
-    },
-    {
-        "name": "Water Bill",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.FIXED
-    },
-    {
-        "name": "Gas Bill",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.FIXED
-    },
-    {
-        "name": "Internet/Phone",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.FIXED
-    },
-    {
-        "name": "Groceries",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.FIXED
-    },
-    {
-        "name": "House Maintenance",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.FIXED
-    },
+    {"name": "Rent", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Electric Bill", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Water Bill", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Gas Bill", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Internet/Phone", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "Groceries", "category_type": "expense", "expense_type": "fixed"},
+    {"name": "House Maintenance", "category_type": "expense", "expense_type": "fixed"},
 
     # Expense Categories - Recurring
-    {
-        "name": "School Fees",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.RECURRING
-    },
-    {
-        "name": "Tuition",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.RECURRING
-    },
-    {
-        "name": "Subscriptions",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.RECURRING
-    },
-    {
-        "name": "Society Maintenance",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.RECURRING
-    },
-    {
-        "name": "Maid/Cook/Driver",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.RECURRING
-    },
+    {"name": "School Fees", "category_type": "expense", "expense_type": "recurring"},
+    {"name": "Tuition", "category_type": "expense", "expense_type": "recurring"},
+    {"name": "Subscriptions", "category_type": "expense", "expense_type": "recurring"},
+    {"name": "Society Maintenance", "category_type": "expense", "expense_type": "recurring"},
+    {"name": "Maid/Cook/Driver", "category_type": "expense", "expense_type": "recurring"},
 
     # Expense Categories - Medical
-    {
-        "name": "Doctor Visits",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.MEDICAL
-    },
-    {
-        "name": "Medicines",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.MEDICAL
-    },
-    {
-        "name": "Health Checkups",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.MEDICAL
-    },
-    {
-        "name": "Other Medical",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.MEDICAL
-    },
+    {"name": "Doctor Visits", "category_type": "expense", "expense_type": "medical"},
+    {"name": "Medicines", "category_type": "expense", "expense_type": "medical"},
+    {"name": "Health Checkups", "category_type": "expense", "expense_type": "medical"},
+    {"name": "Other Medical", "category_type": "expense", "expense_type": "medical"},
 
     # Expense Categories - Discretionary
-    {
-        "name": "Shopping",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DISCRETIONARY
-    },
-    {
-        "name": "Eating Out",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DISCRETIONARY
-    },
-    {
-        "name": "Movies/Entertainment",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DISCRETIONARY
-    },
-    {
-        "name": "Travel/Vacation",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DISCRETIONARY
-    },
-    {
-        "name": "Gifts",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DISCRETIONARY
-    },
-    {
-        "name": "Personal Care",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DISCRETIONARY
-    },
-    {
-        "name": "Hobbies",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DISCRETIONARY
-    },
-    {
-        "name": "Miscellaneous",
-        "category_type": CategoryType.EXPENSE,
-        "expense_type": ExpenseType.DISCRETIONARY
-    },
+    {"name": "Shopping", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Eating Out", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Movies/Entertainment", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Travel/Vacation", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Gifts", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Personal Care", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Hobbies", "category_type": "expense", "expense_type": "discretionary"},
+    {"name": "Miscellaneous", "category_type": "expense", "expense_type": "discretionary"},
 ]
 
 

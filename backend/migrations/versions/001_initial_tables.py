@@ -36,8 +36,8 @@ def upgrade():
         'financial_categories',
         sa.Column('id', sa.Integer(), nullable=False),
         sa.Column('name', sa.String(length=100), nullable=False),
-        sa.Column('category_type', sa.Enum('income', 'savings', 'expense', name='categorytype'), nullable=False),
-        sa.Column('expense_type', sa.Enum('debt_loan', 'insurance', 'fixed', 'recurring', 'medical', 'discretionary', name='expensetype'), nullable=True),
+        sa.Column('category_type', sa.String(20), nullable=False),
+        sa.Column('expense_type', sa.String(20), nullable=True),
         sa.Column('parent_id', sa.Integer(), nullable=True),
         sa.Column('user_id', sa.Integer(), nullable=True),
         sa.Column('is_active', sa.Boolean(), nullable=False, server_default='true'),
@@ -94,7 +94,3 @@ def downgrade():
     op.drop_table('budget_entries')
     op.drop_table('financial_categories')
     op.drop_table('users')
-
-    # Drop enum types
-    op.execute('DROP TYPE IF EXISTS expensetype')
-    op.execute('DROP TYPE IF EXISTS categorytype')
