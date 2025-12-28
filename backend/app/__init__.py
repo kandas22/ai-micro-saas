@@ -30,15 +30,19 @@ def create_app(config_name: str = None) -> Flask:
     db.init_app(app)
     migrate.init_app(app, db)
     jwt.init_app(app)
+    # Configure CORS - allow production and development origins
+    allowed_origins = [
+        app.config["FRONTEND_URL"],
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
+        "http://72.61.244.236:3000",
+    ]
     cors.init_app(
         app,
-        origins=[
-            app.config["FRONTEND_URL"],
-            "http://localhost:3000",
-            "http://127.0.0.1:3000",
-            "http://0.0.0.0:3000"
-        ],
-        supports_credentials=True
+        origins=allowed_origins,
+        supports_credentials=True,
+        allow_headers=["Content-Type", "Authorization"],
+        methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"]
     )
 
     # Register blueprints
